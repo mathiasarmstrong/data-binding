@@ -4,6 +4,38 @@ var Robin = {
       destination[prop] = source[prop];
     }
     return destination
+  },
+
+  modelNames: ["name"],
+  
+  modelValues: {},
+
+  templates: {
+  },
+
+  findTemplates: function() {
+    for (var i = 0; i < this.modelNames.length; i++) {
+      var modelName = this.modelNames[i]
+      if (!this.templates[modelName]) {
+        this.templates[modelName] = [];
+        // [ { name: DOMElement, template: "Template"}, { } ]
+      }
+      var modelUses = $('.use-model-' + modelName);
+      for (var j = 0; j < modelUses.length; j++) {
+        this.extend(RobinObject, modelUses[j]);
+        this.templates[modelName].push({domElement: modelUses[j], template: modelUses[j].textContent});
+      }
+    }
+  },
+
+  updateModel: function(modelName, modelValue) {
+    this.modelValues[modelName] = modelValue;
+    var bindings = this.templates[modelName];
+    for (var i = 0; i < bindings.length; i++) {
+      var binding = bindings[i];
+      binding.domElement.textContent = binding.domElement.render(binding.template, this.modelValues)
+      // domElement.textContent = domsTemplates.render(domsTemplates[domElement], this.modelValues);
+    }
   }
 }
 
