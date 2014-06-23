@@ -6,9 +6,13 @@
 <body>
   <form>
     Tell me your name:
-    <input type="text" class="model-name">
+    <input type="text" class="model-name" value="Your Name">
+    Tell me your age:
+    <input type="number" class="model-age" value="55">
   </form>
-  <h1 class='use-model-name'>Hello {{name}} </h1>
+  <h1 class='use-model-name use-model-age'>Hello {{name}} of age {{age}}</h1>
+
+  <p class='use-model-name use-model-age'>Hey, {{name}}. I think it's unbelievable that you're using my framework! {{name}}, you give my life meaning! It's unbelievable that at only age {{age}}, you're able to do these kinds of things!</p>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="js/framework.js"></script>
   <script src="js/main.js"></script>

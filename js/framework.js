@@ -6,12 +6,11 @@ var Robin = {
     return destination
   },
 
-  modelNames: ["name"],
+  modelNames: ["name", "age"],
   
   modelValues: {},
 
-  templates: {
-  },
+  templates: {},
 
   findTemplates: function() {
     for (var i = 0; i < this.modelNames.length; i++) {
@@ -28,6 +27,19 @@ var Robin = {
     }
   },
 
+  findDataSources: function() {
+    for (var i = 0; i < this.modelNames.length; i++) {
+      var modelName = this.modelNames[i];
+      this.addEventHandler(modelName);
+    }
+  },
+
+  addEventHandler: function(modelName) {
+    $('.model-' + modelName).on('change', function(){
+      Robin.updateModel(modelName, this.value);
+    })
+  },
+
   updateModel: function(modelName, modelValue) {
     this.modelValues[modelName] = modelValue;
     var bindings = this.templates[modelName];
@@ -36,6 +48,15 @@ var Robin = {
       binding.domElement.textContent = binding.domElement.render(binding.template, this.modelValues)
       // domElement.textContent = domsTemplates.render(domsTemplates[domElement], this.modelValues);
     }
+  },
+
+  init: function() {
+    this.findTemplates();
+    for (var i = 0; i < this.modelNames.length; i++) {
+      var modelName = this.modelNames[i];
+      this.updateModel(modelName, $('.model-' + modelName).val());
+    }
+    this.findDataSources();
   }
 }
 
