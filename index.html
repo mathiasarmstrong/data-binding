@@ -7,8 +7,13 @@
   <form>
     Tell me your name:
     <input type="text">
+    </br>
+    What meetup are you at?
+    <input type="text">
   </form>
-  <h1 class='world'>Hello </h1>
+  <h1>Hello {{name}}</h1>
+  <p>Hi {{name}}. Thanks for coming to {{meetup}}!</p>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="js/framework.js"></script>
   <script src="js/main.js"></script>
 </body>
