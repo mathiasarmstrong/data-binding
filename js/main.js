@@ -12,24 +12,31 @@ var bindTemplatesForModel = function(modelName) {
   }
 }
 
+var modelValues = {}
+
 var changeModelValue = function(modelName, modelValue) {
   $(window.bindings[modelName]).each(function(index, binding){
     elem = $(binding[0]);
     var template = binding[1]
-    var values = {};
-    values[modelName] = modelValue;
-    var newHtml = applyTemplate(template, values)
+    modelValues[modelName] = modelValue;
+    var newHtml = applyTemplate(template, modelValues)
     elem.html(newHtml);
   });
 }
 
+var setListenerForModel = function(modelName) {
+  $('.model-' + modelName).on('change', function() {
+    changeModelValue(modelName, this.value);
+  });  
+}
+
 $(document).ready(function() {
-  bindTemplatesForModel("name")
+  bindTemplatesForModel("name");
+  setListenerForModel("name");
+  bindTemplatesForModel("meetup");
+  setListenerForModel("meetup");
 });
 
-$('.model-name').on('change', function() {
-  changeModelValue("name", this.value);
-});
 
 var applyTemplate = function(template, values){
   for (key in values) {
