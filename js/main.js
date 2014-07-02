@@ -1,15 +1,19 @@
-$(document).ready(function() {
+var bindTemplatesForModel = function(modelName) {
   if (!window.bindings) {
     window.bindings = {}
   }
-  if (!window.bindings["name"]) {
-    window.bindings["name"] = [];
+  if (!window.bindings[modelName]) {
+    window.bindings[modelName] = [];
   }
-  var elements = $('.use-name');
+  var elements = $('.use-' + modelName);
 
   for (var i = 0; i < elements.length; i++) {
-    window.bindings["name"].push( [elements[i], elements[i].innerHTML] );
+    window.bindings[modelName].push( [elements[i], elements[i].innerHTML] );
   }
+}
+
+$(document).ready(function() {
+  bindTemplatesForModel("name")
 });
 
 $('.model-name').on('change', function() {
