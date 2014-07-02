@@ -12,18 +12,23 @@ var bindTemplatesForModel = function(modelName) {
   }
 }
 
+var changeModelValue = function(modelName, modelValue) {
+  $(window.bindings[modelName]).each(function(index, binding){
+    elem = $(binding[0]);
+    var template = binding[1]
+    var values = {};
+    values[modelName] = modelValue;
+    var newHtml = applyTemplate(template, values)
+    elem.html(newHtml);
+  });
+}
+
 $(document).ready(function() {
   bindTemplatesForModel("name")
 });
 
 $('.model-name').on('change', function() {
-  var name = this.value;
-  $(window.bindings["name"]).each(function(index, binding){
-    elem = $(binding[0]);
-    var template = binding[1]
-    var newHtml = applyTemplate(template, {name: name})
-    elem.html(newHtml);
-  });
+  changeModelValue("name", this.value);
 });
 
 var applyTemplate = function(template, values){
