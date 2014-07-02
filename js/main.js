@@ -35,6 +35,8 @@ $(document).ready(function() {
   setListenerForModel("name");
   bindTemplatesForModel("meetup");
   setListenerForModel("meetup");
+  changeModelValue("name", "")
+  changeModelValue("meetup", "")
 });
 
 
